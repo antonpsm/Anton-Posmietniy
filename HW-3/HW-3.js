@@ -176,7 +176,7 @@
 //  Пользователь вводит стаж работы, а программа пишет ему надбавку.
 
 
-// const experience = prompt('Enter your years of work experience');
+// const experience = +prompt('Enter your years of work experience');
 // if (experience >= 0 && experience <= 1){
 //     alert("you don't have an premium")
 // }else if (experience >=2 && experience <= 5){
