@@ -96,17 +96,17 @@
 //     ['x', 'x', 'x', 'x', 'x', 'x','x']
 
 
-const arr = [];
-for (let i = 0; i < 10; i++) {
-    const arrInArr = [];
-    for (let j = 0; j < 10; j++) {
-        const value = ( i === 0 || i === 9 || j === 0 || j === 9 ) ?    // в скобки взял для лучшей читаемости кода
-            arrInArr.push('x') :
-            arrInArr.push(0);
-    }
-    arr.push(arrInArr);
-}
-console.log(arr);
+// const arr = [];
+// for (let i = 0; i < 10; i++) {
+//     const arrInArr = [];
+//     for (let j = 0; j < 10; j++) {
+//         const value = ( i === 0 || i === 9 || j === 0 || j === 9 ) ?    // в скобки взял для лучшей читаемости кода
+//             arrInArr.push('x') :
+//             arrInArr.push(0);
+//     }
+//     arr.push(arrInArr);
+// }
+// console.log(arr);
 
 
 // 15*) нарисовать матрицу (таблица умножения)
@@ -129,17 +129,20 @@ console.log(arr);
 //
 
 
-// const num = prompt('Введите число товаров');
-// const lastNum = num[num.length - 1];
-// let str;
-// if (+lastNum === 1) {
-//     str = `В корзине ${+num} товар`;
-// } else if (+lastNum >= 2 && +lastNum <= 4) {
-//     str = `В корзине ${+num} товара`;
-// } else if (+lastNum >= 5 && +lastNum <= 9) {
-//     str = `В корзине ${+num} товаров`;
-// } else str = 'Ту матч, братик. Откуда столько денег?';
-// alert(str);
+const num = prompt('Введите число товаров');
+const lastNum = num[num.length - 1];
+const preLastNum = num[num.length - 2];
+let str;
+if (+lastNum === 0 || +preLastNum === 1) {
+    str = `В корзине ${+num} товаров`;
+} else if (+lastNum === 1) {
+    str = `В корзине ${+num} товар`;
+} else if (+lastNum >= 2 && +lastNum <= 4) {
+    str = `В корзине ${+num} товара`;
+} else if (+lastNum >= 5 && +lastNum <= 9) {
+    str = `В корзине ${+num} товаров`;
+}
+alert(str);
 
 
 
