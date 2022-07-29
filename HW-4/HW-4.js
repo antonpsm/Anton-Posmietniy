@@ -1,15 +1,6 @@
 // 1) Даны два массива: ['a', 'b', 'c'] и [1, 2, 3]. Объедините их вместе.
 
 
-// const arr1 = ['a', 'b', 'c'];
-// const arr2 = [1, 2, 3];
-// const arr3 = arr1 + arr2;
-// console.log(arr3);
-
-// const arr1 = ['a', 'b', 'c'];
-// const arr2 = [1, 2, 3];
-// const arr3 = [arr1 + arr2];
-// console.log(arr3);
 
 // let arr1 = ['a', 'b', 'c'];
 // const arr2 = [1, 2, 3];
@@ -115,7 +106,7 @@
 
 
 // const num = [];
-// for (let i = -4; i <= 100; i++) {
+// for (let i = -4; i <= 100; i += 2) {
 //     num.push(i);
 // }
 // console.log(num);
