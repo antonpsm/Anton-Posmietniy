@@ -88,15 +88,15 @@
 //     делать первый символ этой строки заглавным и возвращать обратно строку с заглавной первой буквой.
 
 //
-// const ucfirst = (str) => str[0].toUpperCase() + str.slice(1);
+const ucfirst = (str) => str[0].toUpperCase() + str.slice(1);
 // console.log(ucfirst('uuuuuu'));
 //
 //
 // // 9) Дана строка вида 'var_text_hello'. Сделайте из него текст 'varTextHello'. ( с помощью функции, которая принимает строку)
 //
 //
-// const ucFirstTwo = (str) => str.split('_').map((el) => ucfirst(el)).join('');
-// console.log(ucFirstTwo('var_text_hello'));
+const ucFirstTwo = (str) => str.split('_').map((el,idx) => idx !== 0 ? ucfirst(el) : el.toLowerCase()).join('');
+console.log(ucFirstTwo('var_text_hello'));
 //
 //
 // // 10) Сделайте функцию inArray, которая определяет, есть в массиве элемент с заданным текстом или нет.
