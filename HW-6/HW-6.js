@@ -172,11 +172,11 @@ class Builder extends AbstractHuman {
 
     workSpeed(squareMeters) {
         let result;
-        let [day, week, month, year] = [24, 24 * 7, 24 * 7 * 30, 24 * 7 * 30 * 12];
+        let [day, week, month, year] = [24, 24 * 7, 730, 8766];
         const dayOfBuilding = (squareMeters * this.workSpeedSquareMeter) / 1440;
         const hoursOfBuilding = (dayOfBuilding * 24);
         if (dayOfBuilding < 1) {
-            result = `Строительство будет занимать ${hoursOfBuilding} часов`;
+            result = `Строительство будет занимать ${Math.floor(hoursOfBuilding)} часов`;
         } else if (dayOfBuilding >= 1 && dayOfBuilding <= 7) {
             let days = Math.floor(hoursOfBuilding / day)
             let hours = Math.floor(hoursOfBuilding % day)
@@ -186,28 +186,29 @@ class Builder extends AbstractHuman {
             let days = Math.floor((hoursOfBuilding % week) / day)
             let hours = Math.floor((hoursOfBuilding % week) % day % 60)
             result = `Строительство будет занимать ${weeks} нед, ${days} дн, ${hours} ч`;
-            console.log(weeks,'weeks');
+
         }else if (dayOfBuilding >= 31 && dayOfBuilding <= 365){
-            let month = Math.floor(hoursOfBuilding / month)
+            let months = Math.floor(hoursOfBuilding / month)
+            console.log(months,'months');
             let weeks = Math.floor((hoursOfBuilding % month) / week)
             let days = Math.floor((hoursOfBuilding % month) % week / day)
             let hours = Math.floor((hoursOfBuilding % month) % week % day % 60)
-            result = `Строительство будет занимать ${month} мес, ${weeks} нед, ${days} дн, ${hours} ч`;
-            console.log(weeks,'weeks');
+            result = `Строительство будет занимать ${months} мес, ${weeks} нед, ${days} дн, ${hours} ч`;
+
         }else if (dayOfBuilding >= 365){
             let years = Math.floor((hoursOfBuilding / year))
-            let month = Math.floor((hoursOfBuilding % year) / month)
+            let months = Math.floor((hoursOfBuilding % year) / month)
             let weeks = Math.floor((hoursOfBuilding % year) % month / week)
             let days = Math.floor((hoursOfBuilding % year) % month % week / day)
             let hours = Math.floor((hoursOfBuilding %year) % month % week % day % 60)
-            result = `Строительство будет занимать ${years} лет, ${month} мес, ${weeks} нед, ${days} дн, ${hours} ч`;
-            console.log(weeks,'weeks');
+            result = `Строительство будет занимать ${years} лет, ${months} мес, ${weeks} нед, ${days} дн, ${hours} ч`;
+
         }
-        console.log(dayOfBuilding);
+        console.log(dayOfBuilding, 'Day of building');
         console.log(result);
    }
 }
 
 const vasya = new Builder(110, 60, 'Vasya', '01-09-1990', false, 'Chernivtsi, Home of Petro Grechka', ['кирка', 'топор'], 1455);
 
-vasya.workSpeed(11);
+vasya.workSpeed(0.5);
