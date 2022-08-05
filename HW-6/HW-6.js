@@ -212,3 +212,5 @@ class Builder extends AbstractHuman {
 const vasya = new Builder(110, 60, 'Vasya', '01-09-1990', false, 'Chernivtsi, Home of Petro Grechka', ['кирка', 'топор'], 1455);
 
 vasya.workSpeed(0.5);
+
+
