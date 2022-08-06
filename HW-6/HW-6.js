@@ -36,9 +36,6 @@ class AbstractHuman {
         console.log(info);
     }
 
-    set invalid(val) {
-        this.isInvalid = val;
-    }
 }
 
 const human = new AbstractHuman(182, 90, 'John', '21-01-2001', false);
@@ -71,13 +68,7 @@ console.log(human);
 
 
 class FrontEndDev extends AbstractHuman {
-    constructor(height, weight, name, yearOfBirth, isInvalid = false, startOfCareer, previousCompanies = [{
-        start: new Date(),
-        end: new Date(),
-        salaryPerMonth: null,
-        position: null,
-        companyName: null
-    }]) {
+    constructor(height, weight, name, yearOfBirth, isInvalid = false, startOfCareer, previousCompanies) {
         super(height, weight, name, yearOfBirth, isInvalid);
         this.startOfCareer = new Date();
         this.previousCompanies = previousCompanies;
@@ -87,18 +78,18 @@ class FrontEndDev extends AbstractHuman {
         console.log(`Привет, меня зовут ${this.name} я Фронтенд разработчик. Работаю с ${this.startOfCareer}`);
     }
 
-    get getAllSalary() {
-        function getSalaryInCompany(company) {
-            const dateOfStart = company.start;
-            const dateOfEnd = company.end;
-            const allMonths = parseInt((dateOfEnd - dateOfStart) / 1000 / 60 / 60 / 24 / 30);
-            const allSalary = allMonths * company.salaryPerMonth;
-            return allSalary;
-        }
+    getSalaryInCompany(company) {
+        const dateOfStart = company.start;
+        const dateOfEnd = company.end;
+        const allMonths = parseInt((dateOfEnd - dateOfStart) / 1000 / 60 / 60 / 24 / 30);
+        const allSalary = allMonths * company.salaryPerMonth;
+        return allSalary;
+    }
 
+    get getAllSalary() {
 
         const allSalaryInAllCompanies = this.previousCompanies.reduce((acc, el) => {
-            acc += getSalaryInCompany(el);
+            acc += this.getSalaryInCompany(el);
             return acc;
         }, 0);
         console.log(allSalaryInAllCompanies, `Вся зэпка ${this.name} за всё время`);
@@ -204,7 +195,6 @@ class Builder extends AbstractHuman {
             result = `Строительство будет занимать ${years} лет, ${months} мес, ${weeks} нед, ${days} дн, ${hours} ч`;
 
         }
-        console.log(dayOfBuilding, 'Day of building');
         console.log(result);
    }
 }
