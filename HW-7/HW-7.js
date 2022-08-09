@@ -8,4 +8,44 @@
 // карточек.
 // 4. Добавить :hover еффект наведения на карточку, + реализовать удаление карточки из спика.
 
+const btn = document.querySelector('.btn');
+const card = document.querySelector('.container--bottom');
+const deleteButton = document.querySelector('.moveEl::after')
+
+
+
+let fieldForCards = [];
+
+function randomId() {
+    return Math.floor(Math.random() * 100000000)
+}
+
+function deleteUser(id) {
+fieldForCards = fieldForCards.filter(el => el !== id)
+    cardRender()
+}
+
+function cardRender () {
+    let result = ``
+    result += `<div class="card">
+<div class="card--bg"></div>
+<div class="img"></div>
+<button class="moveEl" ></button>
+
+</div>
+`
+    card.innerHTML = result
+}
+btn.addEventListener('click', () => {
+    fieldForCards = [...fieldForCards, randomId()]
+    cardRender()
+})
+
+// ДЕБАЖИТЬ И ПЕРЕДЕЛЫВАТЬ НАХУЙ
+
+
+
+
+
+
 
