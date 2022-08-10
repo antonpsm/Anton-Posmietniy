@@ -8,40 +8,37 @@
 // карточек.
 // 4. Добавить :hover еффект наведения на карточку, + реализовать удаление карточки из спика.
 
-const btn = document.querySelector('.btn');
-const card = document.querySelector('.container--bottom');
-const deleteButton = document.querySelector('.moveEl::after')
-
-
+const btn = document.querySelector(".btn");
+const card = document.querySelector(".container--bottom");
 
 let fieldForCards = [];
 
 function randomId() {
-    return Math.floor(Math.random() * 100000000)
+    return Math.floor(Math.random() * 100000000);
 }
 
-function deleteUser(id) {
-fieldForCards = fieldForCards.filter(el => el !== id)
-    cardRender()
+function deleteCard(id) {
+    fieldForCards = fieldForCards.filter(el => el !== id);
+    cardRender();
 }
 
-function cardRender () {
-    let result = ``
-    result += `<div class="card">
+function cardRender() {
+    let result = ``;
+    for (let i = 0; i < fieldForCards.length; i++) {
+        result += `<div class="card">
 <div class="card--bg"></div>
 <div class="img"></div>
-<button class="moveEl" ></button>
-
+<button class="moveEl" onclick="deleteCard(${fieldForCards[i]})" ></button>
 </div>
-`
-    card.innerHTML = result
+`;
+    }
+    card.innerHTML = result;
 }
-btn.addEventListener('click', () => {
-    fieldForCards = [...fieldForCards, randomId()]
-    cardRender()
-})
 
-// ДЕБАЖИТЬ И ПЕРЕДЕЛЫВАТЬ НАХУЙ
+btn.addEventListener("click", () => {
+    fieldForCards = [...fieldForCards, randomId()];
+    cardRender();
+});
 
 
 
