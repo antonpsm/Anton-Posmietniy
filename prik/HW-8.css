@@ -1,0 +1,19 @@
+.container{
+
+}
+
+.wrapper{
+    margin: 0 auto;
+    width: 1600px;
+    min-height: 900px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.card{
+    margin: 10px 0;
+    background: #fff;
+    border: #ff9794 1px solid;
+    height: 100px;
+}
