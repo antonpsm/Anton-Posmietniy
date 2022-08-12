@@ -1,5 +1,83 @@
 .container{
+}
 
+.header{
+    margin: 0 auto;
+    width: 1500px;
+    position: relative;
+    background: #fff;
+    border: #00a0f6 2px solid;
+    height: 100px;
+}
+
+.name{
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    left: 150px;
+}
+
+.arrow--down--name{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 24px;
+    left: 211px;
+}
+
+.arrow--up--name{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 24px;
+    left: 211px;
+}
+
+
+.email{
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    left: 680px;
+}
+
+.arrow--down--email{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 24px;
+    left: 741px;
+}
+
+.arrow--up--email{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 24px;
+    left: 741px;
+}
+
+.status{
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    left: 1140px;
+}
+
+.arrow--down--status{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 24px;
+    left: 1204px;
+}
+
+.arrow--up--status{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 24px;
+    left: 1204px;
 }
 
 .wrapper{
@@ -11,9 +89,53 @@
     padding: 10px;
 }
 
+
 .card{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     margin: 10px 0;
     background: #fff;
     border: #ff9794 1px solid;
     height: 100px;
+}
+
+img{
+    position: absolute;
+    top: 5px;
+    left: 30px;
+    width: 90px;
+    height: 90px;
+}
+
+.userName{
+    position: absolute;
+    top: 40px;
+    left: 150px;
+}
+
+.userPhone{
+    position: absolute;
+    top: 40px;
+    left: 350px;
+}
+
+.userEmail{
+    position: absolute;
+    top: 40px;
+    left: 680px;
+}
+
+.userStatus{
+    position: absolute;
+    top: 40px;
+    left: 1190px;
+}
+
+.options {
+    position: absolute;
+    top: 40px;
+    left: 1430px;
 }
