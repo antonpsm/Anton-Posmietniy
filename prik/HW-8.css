@@ -1,4 +1,31 @@
 .container{
+    position: relative;
+}
+
+.options--field{
+    position: fixed;
+    box-sizing: border-box;
+    top: 288px;
+    left: 601px;
+    width: 809px;
+    height: 255px;
+    background: #000;
+    z-index: 5;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 21px;
+}
+.info--delete--btn{
+    position: absolute;
+    top: 12px;
+    left: 759px;
+    width: 35px;
+    height: 35px;
+    z-index: 7;
+    background: red;
+    font-size: 28px;
+    text-align: center;
 }
 
 .header{
@@ -9,6 +36,7 @@
     border: #00a0f6 2px solid;
     height: 100px;
 }
+
 
 .name{
     cursor: pointer;
@@ -90,12 +118,14 @@
 }
 
 
+
+
 .card{
     position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*justify-content: space-around;*/
+    /*align-items: center;*/
     margin: 10px 0;
     background: #fff;
     border: #ff9794 1px solid;
@@ -136,6 +166,24 @@ img{
 
 .options {
     position: absolute;
-    top: 40px;
+    top: 0;
     left: 1430px;
+    width: 50px;
+    height: 50px;
+    background: #f60003;
+}
+.options:active{
+    background: chartreuse;
+}
+
+
+
+.user--info{
+    position: absolute;
+    top: 40px;
+    left: 500px;
+    width: 300px;
+    height: 600px;
+    background: #00a0f6;
+    z-index: 99;
 }
