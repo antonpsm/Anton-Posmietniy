@@ -39,12 +39,12 @@
 
 //Апишка https://jsonplaceholder.typicode.com/users
 const wrapper = document.querySelector('.wrapper');
-const container = document.querySelector('.container')
+const container = document.querySelector('.container');
 const header = document.querySelector('.options--container');
 const nameButton = document.querySelector('.name');
 const emailButton = document.querySelector('.email');
 const statusButton = document.querySelector('.status');
-const optionsContainer = document.querySelector('.options--container')
+const optionsContainer = document.querySelector('.options--container');
 
 //========================= КЛИКИ =========================
 
@@ -61,8 +61,6 @@ const optionsContainer = document.querySelector('.options--container')
 //         return counter;
 //     };
 // }
-
-
 
 
 //==================== ХЕДДЕР РЕНДЕР КЛИКИ =========================
@@ -95,7 +93,51 @@ const apiImages = "https://random.imagecdn.app/500/500";
 
 
 // const status = ['Active', 'Inactive']   // <------------------------------------------ STATUS ARRAY
+
+
+async function api(api, options) {
+    return (await fetch(api, options)).json();
+}
+
 let [nameClick, emailClick, statusClick] = [0, 0, 0];
+
+nameButton.addEventListener('click', () => {
+    usersDefault = [...users, usersDefault];
+    nameClick++;
+    [emailClick, statusClick] = [0, 0];
+    nameClick = nameClick === 3 ? 0 : nameClick;
+    renderHeader();
+    if (nameClick !== 0) {
+        sortBy(usersDefault, 'name', nameClick);
+        renderUser(usersDefault);
+    } else renderUser(users);
+});
+
+emailButton.addEventListener('click', () => {
+    usersDefault = [...users, usersDefault];
+    emailClick++;
+    [nameClick, statusClick] = [0, 0];
+    emailClick = emailClick === 3 ? 0 : emailClick;
+    renderHeader();
+    if (emailClick !== 0) {
+        sortBy(usersDefault, 'phone', emailClick);
+        renderUser(usersDefault);
+    } else renderUser(users);
+
+});
+
+statusButton.addEventListener('click', () => {
+    usersDefault = [...users, usersDefault];
+    statusClick++;
+    [nameClick, emailClick] = [0, 0];
+    statusClick = statusClick === 3 ? 0 : statusClick;
+    renderHeader();
+    if (statusClick !== 0) {
+        sortBy(usersDefault, 'status', statusClick);
+        renderUser(usersDefault);
+    } else renderUser(users);
+});
+
 function renderHeader() {
     let result = '';
     switch (nameClick) {
@@ -107,7 +149,8 @@ function renderHeader() {
             result +=
                 `<img class="arrow--up--name" src="icons8-стрелка-вверх-в-круге-64.png" alt="">`;
             break;
-    }switch (emailClick) {
+    }
+    switch (emailClick) {
         case 1 :
             result +=
                 `<img class="arrow--up--email" src="icons8-стрелка-вниз-в-круге-64.png" alt="">`;
@@ -116,7 +159,8 @@ function renderHeader() {
             result +=
                 `<img class="arrow--up--email" src="icons8-стрелка-вверх-в-круге-64.png" alt="">`;
             break;
-    }switch (statusClick) {
+    }
+    switch (statusClick) {
         case 1 :
             result +=
                 `<img class="arrow--up--status" src="icons8-стрелка-вниз-в-круге-64.png" alt="">`;
@@ -135,202 +179,237 @@ let usersDefault = [];
 (async () => {
     users = await api("https://jsonplaceholder.typicode.com/users");
     users.forEach(el => {
-        el.status = 'Active';
+        el.status = 'ACTIVE';
         el.id = getRandomId();
         el.flag = 0;
-        el.flagInfo = 0
-    })
-    renderUser(users)
+        el.flagInfo = 0;
+        el.flagDeleteUser = 0;
+        el.flagAddUser = 0
+    });
+    renderUser(users);
     console.log(users);
     // const userCard = document.querySelectorAll('.card')
     // console.log(userCard);
 
 })();
 
-
-// users.forEach(el => {
-//     el.status = 'Active';
-//     el.id = getRandomId();
-//     el.flag = 0;
-//     el.flagInfo = 0
-// })
-// renderUser(users)
-
-nameButton.addEventListener('click', () => {
-    usersDefault = [...users, usersDefault]
-    nameClick ++;
-    [emailClick, statusClick] = [0, 0];
-    nameClick = nameClick === 3 ? 0 : nameClick;
-    renderHeader();
-    if (nameClick !== 0) {
-        sortBy(usersDefault, 'name', nameClick)
-        renderUser(usersDefault)
-    } else renderUser(users)
-});
-
-emailButton.addEventListener('click', () => {
-    usersDefault = [...users, usersDefault]
-    emailClick ++;
-    [nameClick, statusClick] = [0, 0];
-    emailClick = emailClick === 3 ? 0 : emailClick;
-    renderHeader();
-    if (emailClick !== 0) {
-        sortBy(usersDefault, 'phone', emailClick)
-        renderUser(usersDefault)
-    } else renderUser(users)
-
-});
-
-statusButton.addEventListener('click', () => {
-    usersDefault = [...users, usersDefault]
-    statusClick ++
-    [nameClick, emailClick] = [0, 0];
-    statusClick = statusClick === 3 ? 0 : statusClick;
-    renderHeader();
-    if (statusClick !== 0) {
-        sortBy(usersDefault, 'status', statusClick)
-        renderUser(usersDefault)
-    } else renderUser(users);
-});
-
 function renderUser(users) {
     let result = '';
     users.forEach(el => {
 
-        if (el.flag === 0) {
-            result += `<div onclick="flagInfoActive(${el.id})" class="card">
-        <img src="${apiImages}" alt="IMG IS HERE">
-        <div class="userName">${el.name}</div>
-        <div class="userPhone">Phone: ${el.phone}</div>
-        <div class="userEmail">Email: ${el.email}</div>
-        <div class="userStatus">ACTIVE</div>
-        <button class="options" onclick="flagOne(${el.id})"></button>
-        </div>
-        `
-        } if (el.flag === 1){
-            result += `<div onclick="flagInfoActive(${el.id})" class="card">
-        <img src="${apiImages}" alt="IMG IS HERE">
-        <div class="userName">${el.name}</div>
-        <div class="userPhone">Phone: ${el.phone}</div>
-        <div class="userEmail">Email: ${el.email}</div>
-        <div class="userStatus">ACTIVE</div>
-        <button class="options" onclick="flagZero(${el.id})"></button>
+        result += `<div class="card">
+<button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
+    <img src="${apiImages}" alt="IMG IS HERE">
+    <div class="userName">${el.name}</div>
+    <div class="userPhone">Phone: ${el.phone}</div>
+    <div class="userEmail">Email: ${el.email}</div>
+    <div class="userStatus">STATUS: ${el.status}</div>
+    <button class="options" onclick="flagClicker(${el.id})">EDIT</button>
+    <button class="delete--user" onclick="flagDeleteUserClicker(${el.id})">DELETE<br>USER</button>
+</div>
+        `;
+        if (el.flagInfo === 1) {
+            result += `<div onclick="flagInfoClicker(${el.id})" class="card">
+<button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
+    <img src="${apiImages}" alt="IMG IS HERE">
+    <div class="userName">${el.name}</div>
+    <div class="userPhone">Phone: ${el.phone}</div>
+    <div class="userEmail">Email: ${el.email}</div>
+    <div class="userStatus">STATUS: ${el.status}</div>
+    <button class="options" onclick="flagClicker(${el.id})">EDIT</button>
+    <button class="delete--user" onclick="flagDeleteUserClicker(${el.id})">DELETE<br>USER</button>
         
         </div>
-        <div class="options--field"> INFO <br> ${JSON.stringify(el)}
-         <button class="info--delete--btn" onclick="flagZero(${el.id})" >X</button>
-         </div>
-         
-        `
-       }
-        // if (el.flagInfo === 0){
-        //     result += `<button onclick="flagInfoActive(${el.id})" class="card">
-        // <img src="${apiImages}" alt="IMG IS HERE">
-        // <div class="userName">${el.name}</div>
-        // <div class="userPhone">Phone: ${el.phone}</div>
-        // <div class="userEmail">Email: ${el.email}</div>
-        // <div class="userStatus">ACTIVE</div>
-        // <button class="options" onclick="flagZero(${el.id})"></button>
-        // </button>
-        // `
-        // } else if (el.flagInfo === 1){
-        //     result += `<button onclick="flagInfoDeActive(${el.id})" class="card">
-        // <img src="${apiImages}" alt="IMG IS HERE">
-        // <div class="userName">${el.name}</div>
-        // <div class="userPhone">Phone: ${el.phone}</div>
-        // <div class="userEmail">Email: ${el.email}</div>
-        // <div class="userStatus">ACTIVE</div>
-        // <button class="options" onclick="flagZero(${el.id})"></button>
-        // </button>
-        //  <div class="usre--info"> </div>
-        // `}
+<div class="user--info"> INFO <br> ${JSON.stringify(el)}
+    <button class="info--delete--btn" onclick="flagInfoClicker(${el.id})">X</button>
+</div>
+        `;
+        }
+        if (el.flag === 1) {
+            result += `<div class="card">
+    <button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
+    <img src="${apiImages}" alt="IMG IS HERE">
+    <div class="userName">${el.name}</div>
+    <div class="userPhone">Phone: ${el.phone}</div>
+    <div class="userEmail">Email: ${el.email}</div>
+    <div class="userStatus">STATUS: ${el.status}</div>
+    <button class="options" onclick="flagClicker(${el.id})">EDIT</button>
+    <button class="delete--user" onclick="flagDeleteUserClicker(${el.id})">DELETE<br>USER</button>
+    <div class="options--field">
+        <input type="text" onchange="changeUserName(this.value, ${el.id})" value="${el.name}">
+        <input type="text" onchange="changeUserPhone(this.value, ${el.id})" value="${el.phone}">
+        <input type="text" onchange="changeUserEmail(this.value, ${el.id})" value="${el.email}">
+        <button class="status--btn active" onclick="statusActive(${el.id})" >STATUS ACTIVE</button>
+        <button class="status--btn inactive" onclick="statusINActive(${el.id})" >STATUS INACTIVE</button>
+        <button class="apply--button" onclick="applyChanges(${el.id})" >APPLY</button>
+    </div>
+</div>
+        `;} if (el.flagDeleteUser === 1) {
+            result += `<div class="card">
+<button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
+    <img src="${apiImages}" alt="IMG IS HERE">
+    <div class="userName">${el.name}</div>
+    <div class="userPhone">Phone: ${el.phone}</div>
+    <div class="userEmail">Email: ${el.email}</div>
+    <div class="userStatus">STATUS: ${el.status}</div>
+    <button class="options" onclick="flagClicker(${el.id})">EDIT</button>
+    <button class="delete--user" onclick="flagDeleteUserClicker(${el.id})">DELETE<br>USER</button>
+</div>
+<div class="delete--field"> Are you sure you want to delete this user?
+<button class="delete--user--button--yes" onclick="deleteUser(${el.id})">YES</button>
+<button class="delete--user--button--no" onclick="flagDeleteUserClicker(${el.id})">NO</button>
+</div>
+`}
     });
-    wrapper.innerHTML =  result
+    wrapper.innerHTML = result;
 }
 
 
-function flagOne(userId) {
-   users = users.map(el => {
-        if (el.id === userId){
-            el.flag = 1
+let userName;
+let userPhone;
+let userEmail;
+let userStatus;
+
+function applyChanges(userId) {
+    users.map(el => {
+        if (el.id === userId) {
+            el.name = !userName ? el.name : userName;
+            el.phone = !userPhone ? el.phone : userPhone;
+            el.email = !userEmail ? el.email : userEmail;
+            el.status = !userStatus ? el.status : userStatus;
+            el.flag = 0;
         }
-        return el
+        return el;
+    });
+
+    renderUser(users);
+}
+
+function changeUserName(value, userId) {
+
+    users = users.map(el => {
+        if (el.id === userId) {
+            userName = value;
+        }
+        return el;
+    });
+}
+
+function changeUserPhone(value, userId) {
+
+    users = users.map(el => {
+        if (el.id === userId) {
+            userPhone = value;
+        }
+        return el;
+    });
+}
+
+function changeUserEmail(value, userId) {
+
+    users = users.map(el => {
+        if (el.id === userId) {
+            userEmail = value;
+        }
+        return el;
+    });
+}
+
+function statusActive (userId){
+    users.map(el => {
+        if (el.id === userId) {
+            userStatus = 'ACTIVE'
+        }
     })
-// renderUser(users)
 }
-function flagZero(userId) {
-    users = users.map(el => {
-        if (el.id === userId){
-            el.flag = 0
+
+function statusINActive (userId){
+    users.map(el => {
+        if (el.id === userId) {
+            userStatus = 'INACTIVE'
         }
-        return el
+    })
+}
+
+
+let numForFlag = 0;
+function flagClicker(userId) {
+    users.map(el => {
+        if (el.id === userId) {
+            if (numForFlag === 0) {
+                numForFlag++;
+            } else if (numForFlag === 1){
+                numForFlag --
+            }
+            el.flag = numForFlag;
+        }
+        return el;
+    });
+    renderUser(users);
+}
+
+let numForFlagInfo = 0;
+
+function flagInfoClicker(userId) {
+    users.map(el => {
+        if (el.id === userId) {
+            if (numForFlagInfo === 0) {
+                numForFlagInfo++;
+            } else if (numForFlagInfo === 1){
+                numForFlagInfo --
+            }
+            el.flagInfo = numForFlagInfo;
+        }
+        return el;
+    });
+    renderUser(users);
+}
+
+let numForFlagDeleteUser = 0;
+
+function flagDeleteUserClicker(userId) {
+    users.map(el => {
+        if (el.id === userId) {
+            if (numForFlagDeleteUser === 0) {
+                numForFlagDeleteUser++;
+            } else if (numForFlagDeleteUser === 1){
+                numForFlagDeleteUser --
+            }
+            el.flagDeleteUser = numForFlagDeleteUser;
+        }
+        return el;
+    });
+    renderUser(users);
+}
+
+
+
+function deleteUser (userId){
+  users = users.filter(el => {
+        if (el.id !== userId) {
+            return el
+        }
     })
     renderUser(users)
+    numForFlagDeleteUser = 0
 }
-
-function flagInfoActive(userId) {
-    users = users.map(el => {
-        if (el.id === userId){
-            el.flagInfo = 1
-        }
-        return el
-    });
-    renderUser(users)
-}
-
-function flagInfoDeActive(userId) {
-    users = users.map(el => {
-        if (el.id === userId){
-            el.flagInfo = 0
-        }
-        return el
-    });
-    // console.log('FLAG DEACTIVE!!');
-    renderUser(users)
-}
-
-
-
-async function api(api, options) {
-    return (await fetch(api, options)).json();
-}
-
-// function sortBy (users, type, direction){
-//     return users.sort((a, b) => {
-//         if (direction === 1){
-//             return b - a
-//         } else if (direction === 2){
-//             return a - b
-//         }
-//     })
-// }
-
-
 
 function getRandomId() {
     return Math.floor(Math.random() * 1000000);
 }
 
-
 function sortBy(users, sortType, direction) {
     return users.sort((objA, objB) => {
-    console.log(direction)
-    if (objA[sortType] > objB[sortType]) {
-      return direction === 1 ? -1 : 1;
-    } else if (objA[sortType] < objB[sortType]) {
-      return direction === 2 ? -1 : 1;
-    }
-  });
+        console.log(direction);
+        if (objA[sortType] > objB[sortType]) {
+            return direction === 1 ? -1 : 1;
+        } else if (objA[sortType] < objB[sortType]) {
+            return direction === 2 ? -1 : 1;
+        }
+    });
 }
 
 
-
-
-
-
-
-// responseData.then((users) => renderUser(users))
-// responseData.then((users) => console.log(users))
 
 // let array = [5,4,3,6,2,1,8,7,9];
 // const sotrArr = (arr, num = 1) => {

@@ -2,13 +2,13 @@
     position: relative;
 }
 
-.options--field{
+.user--info{
     position: fixed;
     box-sizing: border-box;
-    top: 288px;
-    left: 601px;
+    top: 489px;
+    left: 487px;
     width: 809px;
-    height: 255px;
+    height: 229px;
     background: #000;
     z-index: 5;
     color: white;
@@ -16,16 +16,71 @@
     padding: 10px;
     font-size: 21px;
 }
+
 .info--delete--btn{
     position: absolute;
-    top: 12px;
-    left: 759px;
+    text-align: center;
+    top: 11px;
+    left: 763px;
     width: 35px;
     height: 35px;
     z-index: 7;
     background: red;
     font-size: 28px;
+    cursor: pointer;
+}
+.options--field{
+    position: fixed;
+    padding: 10px;
+    top: 254px;
+    left: 500px;
+    width: 784px;
+    height: 120px;
+    background: #00a0f6;
+    z-index: 8;
+}
+
+.status--btn:active{
+    background: #f6e600;
+}
+/*.active{*/
+/*    */
+/*}*/
+/*.active*/
+
+
+.apply--button{
+    margin-left: 364px;
+    margin-top: 22px;
+    width: 100px;
+    height: 50px;
+}
+
+.delete--field{
+    position: fixed;
+    box-sizing: border-box;
+    top: 300px;
+    left: 487px;
+    width: 809px;
+    height: 186px;
+    background: #c97575;
+    z-index: 5;
     text-align: center;
+    padding: 10px;
+    font-size: 40px;
+}
+.delete--user--button--yes{
+    margin-left: 6px;
+    margin-top: 22px;
+    width: 100px;
+    height: 50px;
+}
+
+.delete--user--button--no{
+    margin-left: 364px;
+    margin-top: 22px;
+    width: 100px;
+    height: 50px;
 }
 
 .header{
@@ -132,6 +187,14 @@
     height: 100px;
 }
 
+.card--button{
+    position: absolute;
+    width: 1400px;
+    height: 100px;
+    background: none;
+    cursor: pointer;
+}
+
 img{
     position: absolute;
     top: 5px;
@@ -161,29 +224,34 @@ img{
 .userStatus{
     position: absolute;
     top: 40px;
-    left: 1190px;
+    left: 1166px;
 }
 
 .options {
     position: absolute;
-    top: 0;
+    top:10px;
     left: 1430px;
     width: 50px;
     height: 50px;
-    background: #f60003;
+    background: chartreuse;
+    cursor: pointer;
+
 }
 .options:active{
-    background: chartreuse;
+    background: #f60003;
 }
 
-
-
-.user--info{
+.delete--user{
     position: absolute;
-    top: 40px;
-    left: 500px;
-    width: 300px;
-    height: 600px;
-    background: #00a0f6;
-    z-index: 99;
+    top:10px;
+    left: 1524px;
+    width: 62px;
+    height: 50px;
+    background: #f60003;
+    padding: 0;
+    cursor: pointer;
 }
+
+
+
+
