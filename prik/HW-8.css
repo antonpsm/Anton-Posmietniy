@@ -163,6 +163,23 @@
     left: 1204px;
 }
 
+.new--user--button{
+    position: absolute;
+    top: 23px;
+    right: 54px;
+    width: 152px;
+    height: 50px;
+    background: #0070f6;
+    color: white;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.new--user--button:active{
+    background: #fff;
+    color: #0070f6;
+}
+
 .wrapper{
     margin: 0 auto;
     width: 1600px;
@@ -238,7 +255,7 @@ img{
 
 }
 .options:active{
-    background: #f60003;
+    background: #f6ef00;
 }
 
 .delete--user{

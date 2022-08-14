@@ -38,62 +38,18 @@
 // 5.3) Если применена пагинация и мы хотим сделать сортировку то пагинация меняется на 1ю страницу
 
 //Апишка https://jsonplaceholder.typicode.com/users
+
+
 const wrapper = document.querySelector('.wrapper');
 const container = document.querySelector('.container');
 const header = document.querySelector('.options--container');
 const nameButton = document.querySelector('.name');
 const emailButton = document.querySelector('.email');
 const statusButton = document.querySelector('.status');
-const optionsContainer = document.querySelector('.options--container');
-
-//========================= КЛИКИ =========================
-
-// function clicking(num = 1) {
-//     let counter = 0;
-//     return function (def) {
-//         counter += num;
-//         if (counter === 3) {
-//             counter = 0;
-//         } if (def) {
-//             counter = 0
-//         }
-//         console.log(counter, 'COUNTER');
-//         return counter;
-//     };
-// }
-
-
-//==================== ХЕДДЕР РЕНДЕР КЛИКИ =========================
+const createUserButton = document.querySelector('.new--user--button');
 
 
 const apiImages = "https://random.imagecdn.app/500/500";
-
-// function optionsField (users){                             // ДОБАВЛЕНИЕ ПОЛЯ ОПШНС С ВЛОЖЕННЫЙМИ ПОЛЯМИ- ФЛАГАМИ
-//     users.forEach((el, idx) => el.options = options);
-//     return console.log(users)
-//
-// }
-
-// const options = {
-//     status: {
-//         sortMin: 0,
-//         sortMax: 0,
-//         sortDefault: 0
-//     },
-//     operations: {
-//         info: 0,
-//         edit: 0,
-//         deleteUser: 0
-//     }
-// };
-
-// const responseData = fetch(apiUrl)
-//     .then((response) => response.json()
-//         .then((users) => renderUser(users)));
-
-
-// const status = ['Active', 'Inactive']   // <------------------------------------------ STATUS ARRAY
-
 
 async function api(api, options) {
     return (await fetch(api, options)).json();
@@ -184,12 +140,11 @@ let usersDefault = [];
         el.flag = 0;
         el.flagInfo = 0;
         el.flagDeleteUser = 0;
-        el.flagAddUser = 0
+        el.flagAddUser = 0;
+        el.flagNewUser = 0;
     });
     renderUser(users);
     console.log(users);
-    // const userCard = document.querySelectorAll('.card')
-    // console.log(userCard);
 
 })();
 
@@ -220,12 +175,11 @@ function renderUser(users) {
     <button class="delete--user" onclick="flagDeleteUserClicker(${el.id})">DELETE<br>USER</button>
         
         </div>
-<div class="user--info"> INFO <br> ${JSON.stringify(el)}
+<div class="user--info"> INFO (json)<br> ${JSON.stringify(el)}
     <button class="info--delete--btn" onclick="flagInfoClicker(${el.id})">X</button>
 </div>
         `;
-        }
-        if (el.flag === 1) {
+        } if (el.flag === 1) {
             result += `<div class="card">
     <button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
     <img src="${apiImages}" alt="IMG IS HERE">
@@ -244,7 +198,8 @@ function renderUser(users) {
         <button class="apply--button" onclick="applyChanges(${el.id})" >APPLY</button>
     </div>
 </div>
-        `;} if (el.flagDeleteUser === 1) {
+        `;
+        } if (el.flagDeleteUser === 1) {
             result += `<div class="card">
 <button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
     <img src="${apiImages}" alt="IMG IS HERE">
@@ -259,11 +214,63 @@ function renderUser(users) {
 <button class="delete--user--button--yes" onclick="deleteUser(${el.id})">YES</button>
 <button class="delete--user--button--no" onclick="flagDeleteUserClicker(${el.id})">NO</button>
 </div>
-`}
+`;
+        } if (el.flagNewUser === 1) {
+            result += `<div class="card">
+<button onclick="flagInfoClicker(${el.id})" class="card--button"></button>
+    <img src="${apiImages}" alt="IMG IS HERE">
+    <div class="userName">${el.name}</div>
+    <div class="userPhone">Phone: ${el.phone}</div>
+    <div class="userEmail">Email: ${el.email}</div>
+    <div class="userStatus">STATUS: ${el.status}</div>
+    <button class="options" onclick="flagClicker(${el.id})">EDIT</button>
+    <button class="delete--user" onclick="flagDeleteUserClicker(${el.id})">DELETE<br>USER</button>
+</div> 
+<div class="options--field">
+        <input type="text" onchange="newUserName(this.value)" value="'NAME'">
+        <input type="text" onchange="newUserPhone(this.value)" value="'PHONE'">
+        <input type="text" onchange="newUserEmail(this.value)" value="EMAIL">
+        <button class="status--btn active" onclick="newStatusActive()" >STATUS ACTIVE</button>
+        <button class="status--btn inactive" onclick="newStatusINActive()" >STATUS INACTIVE</button>
+        <button class="apply--button" onclick="createNewUser()" >APPLY</button>
+    </div>
+`
+        }
     });
     wrapper.innerHTML = result;
 }
 
+createUserButton.addEventListener('click', () => {
+    flagCreateNewUserClicker(users);
+});
+
+function newUserName(newName){
+    userName = newName
+}
+function newUserPhone(newPhone){
+    userPhone = newPhone
+}
+function newUserEmail(newEmail){
+    userEmail = newEmail
+}
+function newStatusActive(){
+    userStatus = 'ACTIVE'
+}
+function newStatusINActive(){
+    userStatus = 'INACTIVE'
+}
+function createNewUser(){
+    users = [...users, {
+        name : userName,
+        phone : userPhone,
+        email : userEmail,
+        status :userStatus,
+        flagNewUser: 0
+    }];
+    users.forEach(el => el.flagNewUser = 0)
+    renderUser(users)
+
+}
 
 let userName;
 let userPhone;
@@ -315,31 +322,32 @@ function changeUserEmail(value, userId) {
     });
 }
 
-function statusActive (userId){
+function statusActive(userId) {
     users.map(el => {
         if (el.id === userId) {
-            userStatus = 'ACTIVE'
+            userStatus = 'ACTIVE';
         }
-    })
+    });
 }
 
-function statusINActive (userId){
+function statusINActive(userId) {
     users.map(el => {
         if (el.id === userId) {
-            userStatus = 'INACTIVE'
+            userStatus = 'INACTIVE';
         }
-    })
+    });
 }
 
 
 let numForFlag = 0;
+
 function flagClicker(userId) {
     users.map(el => {
         if (el.id === userId) {
             if (numForFlag === 0) {
                 numForFlag++;
-            } else if (numForFlag === 1){
-                numForFlag --
+            } else if (numForFlag === 1) {
+                numForFlag--;
             }
             el.flag = numForFlag;
         }
@@ -355,8 +363,8 @@ function flagInfoClicker(userId) {
         if (el.id === userId) {
             if (numForFlagInfo === 0) {
                 numForFlagInfo++;
-            } else if (numForFlagInfo === 1){
-                numForFlagInfo --
+            } else if (numForFlagInfo === 1) {
+                numForFlagInfo--;
             }
             el.flagInfo = numForFlagInfo;
         }
@@ -372,8 +380,8 @@ function flagDeleteUserClicker(userId) {
         if (el.id === userId) {
             if (numForFlagDeleteUser === 0) {
                 numForFlagDeleteUser++;
-            } else if (numForFlagDeleteUser === 1){
-                numForFlagDeleteUser --
+            } else if (numForFlagDeleteUser === 1) {
+                numForFlagDeleteUser--;
             }
             el.flagDeleteUser = numForFlagDeleteUser;
         }
@@ -384,14 +392,28 @@ function flagDeleteUserClicker(userId) {
 
 
 
-function deleteUser (userId){
-  users = users.filter(el => {
-        if (el.id !== userId) {
-            return el
+function flagCreateNewUserClicker(users) {
+    users.map(el => {
+        if (el.flagNewUser === 0) {
+            el.flagNewUser = 1;
+        } else if (el.flagNewUser === 1) {
+            el.flagNewUser = 0;
         }
-    })
-    renderUser(users)
-    numForFlagDeleteUser = 0
+        console.log(el.flagNewUser, 'flagNewUser');
+        return el;
+    });
+    renderUser(users);
+}
+
+
+function deleteUser(userId) {
+    users = users.filter(el => {
+        if (el.id !== userId) {
+            return el;
+        }
+    });
+    renderUser(users);
+    numForFlagDeleteUser = 0;
 }
 
 function getRandomId() {
@@ -408,11 +430,3 @@ function sortBy(users, sortType, direction) {
         }
     });
 }
-
-
-
-// let array = [5,4,3,6,2,1,8,7,9];
-// const sotrArr = (arr, num = 1) => {
-//     return console.log(arr.sort((a,b) => num === 1 ? b - a : a - b))
-// }
-// sotrArr(array, 0)
